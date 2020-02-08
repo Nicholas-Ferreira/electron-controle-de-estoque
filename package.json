@@ -18,5 +18,8 @@
   "license": "CC0-1.0",
   "devDependencies": {
     "electron": "^8.0.0"
+  },
+  "dependencies": {
+    "mongoose": "^5.8.11"
   }
 }
