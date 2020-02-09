@@ -16,10 +16,28 @@
   ],
   "author": "GitHub",
   "license": "CC0-1.0",
-  "devDependencies": {
-    "electron": "^8.0.0"
-  },
   "dependencies": {
-    "mongoose": "^5.8.11"
+    "chart.js": "^2.9.3",
+    "electron-is-dev": "^1.1.0",
+    "mongoose": "^5.8.11",
+    "@fortawesome/fontawesome-free": "5.10.2",
+    "bootstrap": "4.3.1",
+    "datatables.net-bs4": "1.10.19",
+    "jquery": "3.4.1",
+    "jquery.easing": "^1.4.1"
+  },
+  "devDependencies": {
+    "electron": "^8.0.0",
+    "browser-sync": "2.26.7",
+    "del": "5.1.0",
+    "gulp": "4.0.2",
+    "gulp-autoprefixer": "7.0.0",
+    "gulp-clean-css": "4.2.0",
+    "gulp-header": "2.0.9",
+    "gulp-plumber": "^1.2.1",
+    "gulp-rename": "1.4.0",
+    "gulp-sass": "4.0.2",
+    "gulp-uglify": "3.0.2",
+    "merge-stream": "2.0.0"
   }
 }

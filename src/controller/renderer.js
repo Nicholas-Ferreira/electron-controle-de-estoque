@@ -5,5 +5,5 @@
 // selectively enable features needed in the rendering
 // process.
 $(document).ready(
-    console.log('aqui')
+    console.log('page load')
 );
