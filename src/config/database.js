@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')// within renderer
 const { app, ipcRenderer } = require('electron')
 const isDev = require('electron-is-dev');
-//require('require-dir')('../models')
+require('require-dir')('../models')
 
 const init = (callback) => {
   const user = 'admin'

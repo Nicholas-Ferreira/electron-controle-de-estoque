@@ -17,19 +17,20 @@
   "author": "GitHub",
   "license": "CC0-1.0",
   "dependencies": {
-    "chart.js": "^2.9.3",
-    "electron-is-dev": "^1.1.0",
-    "mongoose": "^5.8.11",
     "@fortawesome/fontawesome-free": "5.10.2",
     "bootstrap": "4.3.1",
+    "chart.js": "^2.9.3",
     "datatables.net-bs4": "1.10.19",
+    "electron-is-dev": "^1.1.0",
     "jquery": "3.4.1",
-    "jquery.easing": "^1.4.1"
+    "jquery.easing": "^1.4.1",
+    "mongoose": "^5.8.11",
+    "require-dir": "^1.2.0"
   },
   "devDependencies": {
-    "electron": "^8.0.0",
     "browser-sync": "2.26.7",
     "del": "5.1.0",
+    "electron": "^8.0.0",
     "gulp": "4.0.2",
     "gulp-autoprefixer": "7.0.0",
     "gulp-clean-css": "4.2.0",
