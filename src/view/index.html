@@ -20,7 +20,6 @@
   <!-- Custom styles for this template-->
   <link href="../../assets/styles/css/sb-admin-2.min.css" rel="stylesheet">
   <link href="../../assets/plugin/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-
 </head>
 
 <body id="page-top">
@@ -92,7 +91,7 @@
           <i class="fas fa-fw fa-university"></i>
           <span>Bases</span></a>
       </li>
-      
+
       <!-- Nav Item - Tables -->
       <li class="nav-item">
         <a class="nav-link" href="#" onclick="navigation('dashboard')">
@@ -126,7 +125,10 @@
             <i class="fa fa-bars"></i>
           </button>
 
-          <label id="page-title">Dashboard</label>
+          <input type="hidden" id="current-page" value="dashboard"/>
+          <div id="page-title">
+            Dashboard
+          </div>
           <!-- Topbar Search
           <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
             <div class="input-group">
@@ -278,6 +280,10 @@
       </div>
     </div>
 
+    <div id="toast-area" aria-live="polite" aria-atomic="true" style="position: absolute; right: 10px; top: 10px; min-height: 200px;">
+      
+    </div>
+
     <!-- Bootstrap core JavaScript-->
     <script src="../../assets/plugin/jquery/jquery-3.4.1.min.js"></script>
     <script src="../../assets/plugin/jquery/jquery.min.js"></script>
@@ -288,11 +294,10 @@
 
     <!-- Custom scripts for all pages-->
     <script src="../../assets/scripts/js/sb-admin-2.min.js"></script>
-
-    <!-- Page level custom scripts -->
+    <script src="../../assets/plugin/maskMoney/jquery.maskMoney.min.js"></script>
+    <script src="../../assets/plugin/mask-input/dist/jquery.mask.min.js"></script>
     <script src="../../assets/scripts/utils.js"></script>
     <script src="../../assets/scripts/main.js"></script>
-
 </body>
 
 </html>

@@ -1,14 +1,12 @@
-const mongoose = require('mongoose')// within renderer
-const { app, ipcRenderer } = require('electron')
+const mongoose = require('mongoose');
 const isDev = require('electron-is-dev');
-require('require-dir')('../models')
 
 const init = (callback) => {
   const user = 'admin'
   const pass = '5v7L8uH3Yt5CXkHK'
   const db = 'estoque'
 
-  const url = `mongodb+srv://${user}:${pass}@cluster0-ipdhw.mongodb.net/${db}`
+  const url = `mongodb+srv://${user}:${pass}@cluster0-ipdhw.mongodb.net/${db}?retryWrites=true&w=majority`
   // mongodb+srv://admin:5v7L8uH3Yt5CXkHK@cluster0-ipdhw.mongodb.net/estoque
 
   mongoose.connect(url, {
@@ -23,13 +21,15 @@ const init = (callback) => {
 
   mongoose.connection.on('disconected', () => {
     console.log('Desconectado em ' + url);
-    if (process.platform !== 'darwin') app.quit()
   });
 
   mongoose.connection.on('error', (erro) => {
     console.log('Erro na conexao em ' + erro);
-    if (process.platform !== 'darwin') app.quit()
   });
 }
 
-module.exports = { init }
+loadModels = (ipcMain) => {
+    require('../models/schemaProducts')(ipcMain)
+}
+
+module.exports = { init, loadModels }

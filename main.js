@@ -1,5 +1,5 @@
 // Modules to control application life and create native browser window
-const { app, BrowserWindow, screen, Menu  } = require('electron')
+const { app, BrowserWindow, screen, Menu, ipcMain } = require('electron')
 const isDev = require('electron-is-dev');
 const database = require('./src/config/database')
 const path = require('path')
@@ -13,13 +13,20 @@ async function createWindow() {
       nodeIntegration: true
     },
   })
-  mainScreen.loadFile('./assets/plugin/loader/dist/index.html')
+  mainScreen.loadFile('./src/view/login.html')
   mainScreen.maximize()
+  mainScreen.webContents.openDevTools()
 
-  database.init(() => {
-    mainScreen.loadFile('./src/view/index.html')
-    mainScreen.webContents.openDevTools()
+  ipcMain.on('server-online', () => {
+    if (mainScreen.getTitle() == 'Hermes') {
+      mainScreen.loadFile('./src/view/index.html')
+      mainScreen.webContents.openDevTools()
+    }
   })
+
+  ipcMain.on('set-title', (event, title) => {
+    mainScreen.setTitle(title || 'Hermes');
+  });
 }
 
 // This method will be called when Electron has finished
@@ -43,5 +50,12 @@ app.on('activate', async function () {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+ipcMain.on('quit', () => {
+  app.quit();
+});
+
 !isDev && Menu.setApplicationMenu(null)
-console.log(isDev)
+
+ipcMain.on('create-product', (e, prod, callback) => {
+  Product.create(prod, callback)
+})

@@ -1,6 +1,7 @@
-$(document).ready(() => {
-  var Products = require('../models/schemaProducts')
-  let data = Products.find({})
+$(document).ready(async () => {
+  let Products = require('../models/schemaProducts')
+  let data = await Products.find({}).exec()
+
   $('#table-products').dataTable({
     "language": {
       "decimal": ",",
@@ -34,7 +35,12 @@ $(document).ready(() => {
       { data: 'name' },
       { data: 'description' },
       { data: 'units' },
-      { data: 'createdAt' }
+      {
+        data: 'price',
+        render: function (data, type, row) {
+          return parseFloat(data).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
+        }
+      },
     ],
     dom: 'Bfrtip',
     buttons: [

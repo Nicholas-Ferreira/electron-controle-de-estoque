@@ -1,0 +1,51 @@
+<!-- Content Row -->
+<div class="row">
+  <div class="col-xl-12 col-lg-12">
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4" style="width: 100%;">
+      <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+        <h6 class="m-0 font-weight-bold text-primary">Produto</h6>
+      </div>
+      <div class="card-body">
+        <form id="formAddProduct" class="needs-validation" action="#">
+          <div class="form-row">
+            <div class="col-md-4 mb-3">
+              <label for="validationTooltipcodigo">Código Interno</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="validationTooltipcodigoPrepend">@</span>
+                </div>
+                <input type="text" name="code" class="form-control" id="validationTooltipcodigo" placeholder=""
+                  aria-describedby="validationTooltipcodigoPrepend" required>
+              </div>
+            </div>
+            <div class="col-md-5 mb-3">
+              <label for="validationTooltip01">Nome</label>
+              <input type="text" name="name" class="form-control" id="validationTooltip01" placeholder="" value=""
+                required>
+            </div>
+            <div class="col-md-3 mb-3">
+              <label for="validationTooltip02">Unidades</label>
+              <input type="text" name="units" class="form-control units" id="validationTooltip02" placeholder="0" value="0"
+                required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-md-9 mb-3">
+              <label for="validationTooltip03">Descrição</label>
+              <input type="text" name="description" class="form-control" id="validationTooltip03" placeholder="" required>
+            </div>
+            <div class="col-md-3 mb-3">
+              <label for="validationTooltip04">Preço</label>
+              <input type="text" name="price" class="form-control money" id="validationTooltip04" placeholder="0,00">
+            </div>
+          </div>
+          <button class="btn btn-primary" type="submit">Salvar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /.container-fluid -->
+
+<script src="../controllers/controllerAddProduct.js"></script>

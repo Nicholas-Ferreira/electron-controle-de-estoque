@@ -18,7 +18,7 @@ const schemaProducts = new mongoose.Schema({
     type: String
   },
   price: {
-    required: false,
+    required: true,
     type: String
   },
   createdAt: {
