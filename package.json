@@ -4,7 +4,9 @@
   "description": "A minimal Electron application",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "build": "electron-packager . src --platform win32 --arch x64 --out C:/Users/Archeros Devs/Documents/electron-quick-start/dist",
+    "setup": "electron-installer-windows --src dist/app-win32-x64/ --dest dist/installers/"
   },
   "repository": "https://github.com/electron/electron-quick-start",
   "keywords": [
@@ -22,6 +24,7 @@
     "chart.js": "^2.9.3",
     "datatables.net-bs4": "1.10.19",
     "electron-is-dev": "^1.1.0",
+    "electron-packager": "^14.2.1",
     "inputmask": "^5.0.3",
     "jquery": "3.4.1",
     "jquery.easing": "^1.4.1",

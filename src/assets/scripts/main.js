@@ -2,8 +2,8 @@
 const ipc = require('electron').ipcRenderer;
 
 const INIT_PAGE = 'dashboard'
-const ERROR_IMAGE = '../../assets/images/error.png'
-const SUCCESS_IMAGE = '../../assets/images/success.png'
+const ERROR_IMAGE = '../images/error.png'
+const SUCCESS_IMAGE = '../images/success.png'
 let history = []
 
 changePage = (location) => {
