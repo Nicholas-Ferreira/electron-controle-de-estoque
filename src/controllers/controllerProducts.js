@@ -1,12 +1,13 @@
+var table;
 $(document).ready(async () => {
   let products = []
   await db.collection("products").get().then((querySnapshot) => {
-    querySnapshot.forEach((doc) => {
-        products.push(doc.data())
+    querySnapshot.forEach(doc => {
+      products.push({ id: doc.id, ...doc.data() })
     });
   });
 
-  $('#table-products').dataTable({
+  table = $('#table-products').dataTable({
     "language": {
       "decimal": ",",
       "thousands": ",",
@@ -42,13 +43,15 @@ $(document).ready(async () => {
       {
         data: 'price',
         render: function (data, type, row) {
-          return parseFloat(data).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
+          return parseFloat(data).toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
         }
-      },{
-        render: function (data, type, row) {
-          return ''
+      }, {
+        data: 'id',
+        render: function (data, type, dados, {row}) {
+          return `<button onclick="edit_product('${data}', this)" class="btn btn-info btn-circle btn-sm"><i class="fas fa-edit"></i></button>
+                  <button onclick="delete_product('${data}', this)" class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></button>`
         }
-      },
+      }
     ],
     dom: 'Bfrtip',
     buttons: [
@@ -58,3 +61,22 @@ $(document).ready(async () => {
     ]
   });
 })
+
+function delete_product(id, btn) {
+  var r = confirm("Deseja excluir o registro?");
+  if (r == true) {
+    db.collection("products").doc(id).delete().then(function () {
+      showToast('Sucesso', 'Produto excluido')
+      $(btn).closest('tr').remove();
+    }).catch(function (error) {
+      showToast('Error', 'Houve um problema', 'error', 1.5)
+      console.log(error)
+    });
+  } else {
+    console.log(2)
+  }
+}
+
+function edit_product(id) {
+  alert('em breve')
+}

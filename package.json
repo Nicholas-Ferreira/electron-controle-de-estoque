@@ -1,12 +1,16 @@
 {
-  "name": "electron-quick-start",
+  "name": "hermes",
   "version": "1.0.0",
   "description": "A minimal Electron application",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "build": "electron-packager . src --platform win32 --arch x64 --out C:/Users/Archeros Devs/Documents/electron-quick-start/dist",
-    "setup": "electron-installer-windows --src dist/app-win32-x64/ --dest dist/installers/"
+    "win32": "electron-packager . myApp --platform=win32 --arch=ia32",
+    "win64": "electron-packager . myApp --platform=win32 --arch=x64",
+    "linux32": "electron-packager . myApp --platform=linux --arch=ia32",
+    "linux64": "electron-packager . myApp --platform=linux --arch=x64",
+    "osx": "electron-packager . myApp --platform=darwin --arch=x64",
+    "build": "electron-packager . --all"
   },
   "repository": "https://github.com/electron/electron-quick-start",
   "keywords": [
