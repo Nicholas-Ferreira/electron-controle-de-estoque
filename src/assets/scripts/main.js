@@ -1,10 +1,38 @@
 
 const ipc = require('electron').ipcRenderer;
+const path = require('path')
 
 const INIT_PAGE = 'dashboard'
-const ERROR_IMAGE = '../images/error.png'
-const SUCCESS_IMAGE = '../images/success.png'
+const ERROR_IMAGE = '../../src/assets/images/error.png'
+const SUCCESS_IMAGE =  '../../src/assets/images/success.png'
 let history = []
+
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    var displayName = user.displayName;
+    var email = user.email;
+    var emailVerified = user.emailVerified;
+    var photoURL = user.photoURL;
+    var isAnonymous = user.isAnonymous;
+    var uid = user.uid;
+    var providerData = user.providerData;
+    $('#page-top').load(`estrutura.html`);
+    setTimeout(() => {
+      $('#link-dashboard').click()
+    }, 100);
+  } else {
+    $('#page-top').load(`login.html`);
+  }
+});
+
+signout = () => {
+  firebase.auth().signOut().then(function() {
+    $('#page-top').load(`login.html`);
+    location.reload()
+  }).catch(function(error) {
+    showToast('Ops!', error.message, 'error', 1.5)
+  });
+}
 
 changePage = (location) => {
   let button = ''
@@ -15,7 +43,7 @@ changePage = (location) => {
   $('#page').load(`${location}.html`);
   $('#page-title').html(`${button}<label>${primeirasMaiuscula(location)}</label>`);
   $('#current-page').val(location)
-}; changePage(INIT_PAGE)
+};
 
 navigation = (location) => {
   let corrent_page = $('#current-page').val()
@@ -50,4 +78,7 @@ showToast = (title = type, mensage, type = 'success', delay = 1) => {
   `
   $('#toast-area').append(toast)
   $(`#toast-${id}`).toast("show")
+  setTimeout(() => {
+    $(`#toast-${id}`).detach()
+  }, delay * 1000 + 500);
 }

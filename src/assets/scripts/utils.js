@@ -8,8 +8,11 @@ function primeirasMaiuscula(frase) {
 }
 
 function parseMoney(moedaReal) {
-  if(moedaReal) moedaReal = 0;
-  return parseFloat(moedaReal.toString().replace('.', '').replace(',', '.').replace('R$ ', ''))
+  try {
+    return parseFloat(moedaReal.toString().replace('.', '').replace(',', '.').replace('R$ ', ''))
+  } catch (error) {
+    return 0
+  }
 }
 
 /**

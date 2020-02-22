@@ -1,6 +1,10 @@
 $(document).ready(async () => {
-  let Products = require('../models/schemaProducts')
-  let data = await Products.find({}).exec()
+  let products = []
+  await db.collection("products").get().then((querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+        products.push(doc.data())
+    });
+  });
 
   $('#table-products').dataTable({
     "language": {
@@ -29,7 +33,7 @@ $(document).ready(async () => {
         "sSortDescending": ": Ordenar colunas de forma descendente"
       }
     },
-    data: data,
+    data: products,
     columns: [
       { data: 'code' },
       { data: 'name' },
@@ -39,6 +43,10 @@ $(document).ready(async () => {
         data: 'price',
         render: function (data, type, row) {
           return parseFloat(data).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
+        }
+      },{
+        render: function (data, type, row) {
+          return ''
         }
       },
     ],

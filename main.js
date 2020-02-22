@@ -13,7 +13,7 @@ async function createWindow() {
       nodeIntegration: true
     },
   })
-  mainScreen.loadFile('./src/view/login.html')
+  mainScreen.loadFile('./src/view/index.html')
   mainScreen.maximize()
   mainScreen.webContents.openDevTools()
 

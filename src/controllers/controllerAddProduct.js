@@ -14,10 +14,8 @@ $(document).ready(() => {
 
   $('#formAddProduct').submit(e => {
     e.preventDefault()
-    const Products = require('../models/schemaProducts')
     const formData = getFormData($(e.target))
     const { code, name, units = 0, description, price = 0 } = formData
-
     try {
       formData.units = parseInt(units)
       formData.price = parseMoney(price)
@@ -31,15 +29,15 @@ $(document).ready(() => {
       return e.preventDefault()
     }
 
-    Products.create(formData, (error) => {
-      if (error) {
-        console.log(error)
-        showToast('Error', 'Houve um produto cadastrado', 'error', 1.5)
-      } else {
-        $(e.target).trigger("reset");
-        console.log('sucesso ao cadastrar')
+    db.collection("products").add(formData)
+    .then(function(docRef) {
+        console.log("sucesso ao cadastrar: ", docRef.id);
         showToast('Sucesso', 'Novo produto cadastrado')
-      }
+        $('#formAddProduct').trigger('reset')
     })
+    .catch(function(error) {
+        console.error("Error adding document: ", error);
+        showToast('Error', 'Houve um produto cadastrado', 'error', 1.5)
+    });
   })
 })

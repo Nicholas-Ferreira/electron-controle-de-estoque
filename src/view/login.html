@@ -3,10 +3,9 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Hermes</title>
+  <title>Hermes - Login</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
   <link rel="stylesheet" href="../assets/plugin/loader/dist/style.css">
-
 </head>
 
 <body>
@@ -14,7 +13,43 @@
   <div id="particles-background" class="vertical-centered-box"></div>
   <div id="particles-foreground" class="vertical-centered-box"></div>
 
-  <div class="vertical-centered-box">
+  <div id="form-login" class="vertical-centered-box" style="display: none;">
+    <div class="content" style="width: 100%;height: 100%;display: flex;align-items: center;">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-xl-6 col-lg-6 col-md-6">
+            <div class="card o-hidden border-0 shadow-lg my-5">
+              <div class="card-body p-0">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="p-5">
+                      <div class="text-center">
+                        <h1 class="h4 text-gray-900 mb-4">Bem vindo!</h1>
+                      </div>
+                      <form class="user" id="signin">
+                        <div class="form-group">
+                          <input type="email" class="form-control form-control-user" id="email"
+                            aria-describedby="emailHelp" placeholder="Digite seu e-mail">
+                        </div>
+                        <div class="form-group">
+                          <input type="password" class="form-control form-control-user" id="senha" placeholder="Senha">
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-user btn-block">
+                          Login
+                        </button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="loading-anim" class="vertical-centered-box">
     <div class="content">
       <div class="loader-circle"></div>
       <div class="loader-line-mask">
@@ -105,6 +140,42 @@
   </div>
   <!-- partial -->
   <script src="../assets/plugin/loader/dist/script.js"></script>
+  <script>
+    $(document).ready(function(){
+      setTimeout(() => {
+        $('#form-login').css('display', 'block')
+        $('#loading-anim').css('display', 'none')
+      }, 1000);
+    });
+
+    document.getElementById('signin').addEventListener("submit", function (e) {
+      e.preventDefault();
+      const email = $('#email').val()
+      const senha = $('#senha').val()
+
+      firebase.auth().signInWithEmailAndPassword(email, senha).catch(function (error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // [START_EXCLUDE]
+        switch (errorCode) {
+          case 'auth/invalid-email':
+            $('#error').html('E-mail invalido')
+            showToast('Ops!', 'E-mail invalido', 'error', 1.5)
+            break;
+          case 'auth/wrong-password':
+            showToast('Ops!', 'Senha incorreta.', 'error', 1.5)
+            break;
+          default:
+            showToast('Ops!', errorMessage, 'error', 1.5)
+            break;
+        }
+        console.log(error);
+        //document.getElementById('quickstart-sign-in').disabled = false;
+        // [END_EXCLUDE]
+      });
+    });
+  </script>
 
 </body>
 
