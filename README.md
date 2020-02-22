@@ -1,1 +1,0 @@
-# electron-controle-de-estoque
