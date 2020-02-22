@@ -14,6 +14,7 @@ $(document).ready(() => {
 
   $('#formAddProduct').submit(e => {
     e.preventDefault()
+    $('.btn-save').prop('disabled', true);
     const formData = getFormData($(e.target))
     const { code, name, units = 0, description, price = 0 } = formData
     try {
@@ -25,8 +26,8 @@ $(document).ready(() => {
       if (isNaN(formData.price)) formData.price = 0
     } catch (error) {
       console.log(error)
-      showToast('Error', 'Houve um produto cadastrado, informações invalidas', 'error', 1.5)
-      return e.preventDefault()
+      $('.btn-save').prop('disabled', false);
+      return showToast('Error', 'Houve um produto cadastrado, informações invalidas', 'error', 1.5)
     }
 
     db.collection("products").add(formData)
@@ -38,6 +39,9 @@ $(document).ready(() => {
     .catch(function(error) {
         console.error("Error adding document: ", error);
         showToast('Error', 'Houve um produto cadastrado', 'error', 1.5)
-    });
+    })
+    .finally(() => {
+      $('.btn-save').prop('disabled', false);
+    })
   })
 })
