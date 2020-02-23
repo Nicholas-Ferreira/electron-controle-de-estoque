@@ -1,1 +1,51 @@
-<span>Entrada</span>
+<!-- Content Row -->
+<div class="row">
+  <div class="col-xl-12 col-lg-12">
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4" style="width: 100%;">
+      <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+        <h6 class="m-0 font-weight-bold text-primary">Entrada</h6>
+        <div class="dropdown no-arrow">
+          <a class="dropdown-toggle" href="#" onclick="openModal()">
+            <i class="fas fa-plus fa-sm fa-fw"></i>
+          </a>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered" id="table-entrada" width="100%" cellspacing="0">
+            <thead>
+              <tr>
+                <th>Código</th>
+                <th>Produto</th>
+                <th>Descrição</th>
+                <th>Valor unit.</th>
+                <th>Total</th>
+                <th>Quantidade</th>
+                <th>Entrada</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan='6' style="text-align: -webkit-center;">Carregando...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /.container-fluid -->
+
+<!-- Page level plugins -->
+<script src="../assets/plugin/datatables/jquery.dataTables.min.js"></script>
+<script src="../assets/plugin/datatables/dataTables.bootstrap4.min.js"></script>
+<script src="../assets/scripts/js/demo/datatables-demo.js"></script>
+<script src="../assets/plugin/datatables/dataTables.buttons.min.js"></script>
+<script src="../assets/plugin/datatables/buttons.html5.min.js"></script>
+<script src="../assets/plugin/datatables/excel.min.js"></script>
+
+<!-- Page level custom scripts -->
+<script src="../controllers/controllerEntrada.js"></script>
