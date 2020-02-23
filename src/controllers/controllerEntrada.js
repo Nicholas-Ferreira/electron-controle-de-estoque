@@ -1,4 +1,5 @@
 var table;
+
 $(document).ready(async () => {
   let entrada = []
   await db.collection("entrada").get().then((querySnapshot) => {
