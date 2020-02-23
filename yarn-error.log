@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add firebase@7.2.3
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add popperjs
 
 PATH: 
   C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Intel\iCLS Client\;C:\Program Files\Intel\iCLS Client\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\dotnet\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files\Zerynth\ztc\windows64;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Python 3.6\python;C:\Program Files\Git\cmd;C:\Program Files (x86)\Yarn\bin\;C:\ProgramData\chocolatey\bin;C:\Program Files\nodejs\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\130\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\140\Tools\Binn\;C:\Program Files\Microsoft SQL Server\140\Tools\Binn\;C:\Program Files\Microsoft SQL Server\140\DTS\Binn\;C:\Program Files (x86)\Microsoft SQL Server\150\DTS\Binn\;C:\Program Files\Mongodb\bin;C:\Users\Archeros Devs\AppData\Local\Programs\Python\Python38-32\Scripts\;C:\Users\Archeros Devs\AppData\Local\Programs\Python\Python38-32\;C:\Users\Archeros Devs\AppData\Local\Microsoft\WindowsApps;C:\Users\Archeros Devs\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Archeros Devs\AppData\Roaming\npm\node_modules\react-native-cli\;C:\Users\Archeros Devs\AppData\Roaming\npm;C:\Users\Archeros Devs\AppData\Roaming\Python\Python38\Scripts;c:\Users\Archeros Devs\AppData\Local\Android\Sdk\platform-tools;
@@ -14,18 +14,32 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: EBUSY: resource busy or locked, unlink 'C:\Users\Archeros Devs\Documents\electron-quick-start\node_modules\electron\dist\chrome_100_percent.pak'
+  Error: https://registry.yarnpkg.com/popperjs: Not found
+      at Request.params.callback [as _callback] (C:\Program Files (x86)\Yarn\lib\cli.js:65939:18)
+      at Request.self.callback (C:\Program Files (x86)\Yarn\lib\cli.js:140464:22)
+      at Request.emit (events.js:198:13)
+      at Request.<anonymous> (C:\Program Files (x86)\Yarn\lib\cli.js:141436:10)
+      at Request.emit (events.js:198:13)
+      at IncomingMessage.<anonymous> (C:\Program Files (x86)\Yarn\lib\cli.js:141358:12)
+      at Object.onceWrapper (events.js:286:20)
+      at IncomingMessage.emit (events.js:203:15)
+      at endReadableNT (_stream_readable.js:1145:12)
+      at process._tickCallback (internal/process/next_tick.js:63:19)
 
 npm manifest: 
   {
-    "name": "electron-quick-start",
+    "name": "hermes",
     "version": "1.0.0",
     "description": "A minimal Electron application",
     "main": "main.js",
     "scripts": {
       "start": "electron .",
-      "build": "electron-packager . src --platform win32 --arch x64 --out C:/Users/Archeros Devs/Documents/electron-quick-start/dist",
-      "setup": "electron-installer-windows --src dist/app-win32-x64/ --dest dist/installers/"
+      "win32": "electron-packager . myApp --platform=win32 --arch=ia32",
+      "win64": "electron-packager . myApp --platform=win32 --arch=x64",
+      "linux32": "electron-packager . myApp --platform=linux --arch=ia32",
+      "linux64": "electron-packager . myApp --platform=linux --arch=x64",
+      "osx": "electron-packager . myApp --platform=darwin --arch=x64",
+      "build": "electron-packager . --all"
     },
     "repository": "https://github.com/electron/electron-quick-start",
     "keywords": [
@@ -39,6 +53,7 @@ npm manifest:
     "license": "CC0-1.0",
     "dependencies": {
       "@fortawesome/fontawesome-free": "5.10.2",
+      "@popperjs/core": "^2.0.6",
       "bootstrap": "4.3.1",
       "chart.js": "^2.9.3",
       "datatables.net-bs4": "1.10.19",
@@ -49,12 +64,13 @@ npm manifest:
       "jquery.easing": "^1.4.1",
       "moment": "^2.24.0",
       "mongoose": "^5.8.11",
-      "require-dir": "^1.2.0"
+      "require-dir": "^1.2.0",
+      "select2": "^4.0.13"
     },
     "devDependencies": {
       "browser-sync": "2.26.7",
       "del": "5.1.0",
-      "electron": "^8.0.0",
+      "electron": "^8.0.1",
       "gulp": "4.0.2",
       "gulp-autoprefixer": "7.0.0",
       "gulp-clean-css": "4.2.0",
@@ -115,6 +131,11 @@ Lockfile:
     dependencies:
       "@nodelib/fs.scandir" "2.1.3"
       fastq "^1.6.0"
+  
+  "@popperjs/core@^2.0.6":
+    version "2.0.6"
+    resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.0.6.tgz#5a39ac118811ca844155b0ad5190b8c24f35e533"
+    integrity sha512-zj7Gw8QC4jmR92eKUvtrZUEpl2ypRbq+qlE4pwf9n2hnUO9BOAcWUs4/Ht+gNIbFt98xtqhLvccdCfD469MzpQ==
   
   "@sindresorhus/is@^0.14.0":
     version "0.14.0"
@@ -1435,10 +1456,10 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.345.tgz#2569d0d54a64ef0f32a4b7e8c80afa5fe57c5d98"
     integrity sha512-f8nx53+Z9Y+SPWGg3YdHrbYYfIJAtbUjpFfW4X1RwTZ94iUG7geg9tV8HqzAXX7XTNgyWgAFvce4yce8ZKxKmg==
   
-  electron@^8.0.0:
-    version "8.0.0"
-    resolved "https://registry.yarnpkg.com/electron/-/electron-8.0.0.tgz#b5f105cda6985ca2f2496de15e44b2bbb0c8e4f4"
-    integrity sha512-vBXUKRqTUq0jv1upvISdvScDDH3uCPwXj4eA5BeR3UDbJp2hOhq7eJxwjIQbfLQql98aYz4X6pSlzBnhfyQqHA==
+  electron@^8.0.1:
+    version "8.0.1"
+    resolved "https://registry.yarnpkg.com/electron/-/electron-8.0.1.tgz#7f5070a1625f423cddcece25a1eb9e6d2f1339fb"
+    integrity sha512-kLZAQkbrAFNjQVpcHJUnjRYQNafuuWKnsdxzag5do1ewMqN0J4Pi/hPE27+5/1YAFMcbvCrPqhWIpcMsi8mKXQ==
     dependencies:
       "@electron/get" "^1.0.1"
       "@types/node" "^12.0.12"
@@ -4273,6 +4294,11 @@ Lockfile:
     dependencies:
       js-base64 "^2.1.8"
       source-map "^0.4.2"
+  
+  select2@^4.0.13:
+    version "4.0.13"
+    resolved "https://registry.yarnpkg.com/select2/-/select2-4.0.13.tgz#0dbe377df3f96167c4c1626033e924372d8ef44d"
+    integrity sha512-1JeB87s6oN/TDxQQYCvS5EFoQyvV6eYMZZ0AeA4tdFDYWN3BAGZ8npr17UBFddU0lgAt3H0yjX3X6/ekOj1yjw==
   
   semver-compare@^1.0.0:
     version "1.0.0"

@@ -46,9 +46,7 @@
   <link href="../assets/styles/css/sb-admin-2.css" rel="stylesheet">
   <link href="../assets/plugin/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
   <link href="../assets/plugin/datatables/buttons.dataTables.min.css" rel="stylesheet">
-  
   <link href="../assets/plugin/select2-4.0.13/dist/css/select2.min.css" rel="stylesheet" />
-  <script src="../assets/plugin/select2-4.0.13/dist/js/select2.min.js"></script>
 </head>
 
 <body>
@@ -59,7 +57,11 @@
   </div>
 
   <!-- Bootstrap core JavaScript-->
-  <script src="../assets/plugin/jquery/jquery.min.js"></script>
+  <script>
+    jQuery = require('jquery')
+    window.jQuery = window.$ = jQuery
+    require('../assets/plugin/select2-4.0.13/dist/js/select2.full.min.js')(window, jQuery)
+  </script>
   <script src="../assets/plugin/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <!-- Core plugin JavaScript-->

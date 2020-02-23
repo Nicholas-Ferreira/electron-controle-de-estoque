@@ -2,6 +2,8 @@ var table;
 
 $(document).ready(async () => {
   let entrada = []
+
+  initProdutsSelector()
   await db.collection("entrada").get().then((querySnapshot) => {
     querySnapshot.forEach(doc => {
       entrada.push({ id: doc.id, ...doc.data() })
@@ -62,6 +64,32 @@ $(document).ready(async () => {
     ]
   });
 })
+
+function initProdutsSelector() {
+  db.collection("products").get().then((querySnapshot) => {
+    $('#list-products').html('<option></option>')
+    querySnapshot.forEach(doc => {
+      $('#list-products').append(`<option value="${doc.id}">${doc.data().name}</option>`)
+    });
+    $('select').select2({
+      placeholder: "Selecione um Produto",
+      allowClear: true,
+      width: '100%',
+      containerCssClass: 'form-control',
+      containerCss: {
+        border: '1px solid #d1d3e2',
+        width: '100%',
+        height: 'calc(1.5em + 0.75rem + 2px)',
+        padding: '0.375rem 0.75rem',
+      }
+    });
+  });
+
+  $('#list-products').on('select2:select', function (e) {
+    var data = e.params.data;
+    console.log(data);
+  });
+}
 
 function delete_product(id, btn) {
   var r = confirm("Deseja excluir o registro?");

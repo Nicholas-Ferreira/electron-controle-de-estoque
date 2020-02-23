@@ -1,7 +1,4 @@
 
-const ipc = require('electron').ipcRenderer;
-const path = require('path')
-
 const INIT_PAGE = 'dashboard'
 const ERROR_IMAGE = '../../src/assets/images/error.png'
 const SUCCESS_IMAGE =  '../../src/assets/images/success.png'
