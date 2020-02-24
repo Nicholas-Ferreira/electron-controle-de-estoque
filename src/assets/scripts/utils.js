@@ -1,3 +1,9 @@
+var { shell } = require('electron')
+
+function openBrowser(url) {
+  shell.openExternal(url)
+}
+
 function primeiraMaiuscula(palavra) {
   return palavra.substring(0, 1).toUpperCase().concat(palavra.substring(1));
 }
@@ -7,13 +13,22 @@ function primeirasMaiuscula(frase) {
   return frase.toLowerCase().replace(/(?:^|\s)\S/g, function (a) { return a.toUpperCase(); });
 }
 
-function parseMoney(moedaReal) {
+function parseMoneyToFloat(moedaReal) {
   try {
-    return parseFloat(moedaReal.toString().replace('.', '').replace(',', '.').replace('R$ ', ''))
+    var val = parseFloat(moedaReal.toString().replace('R$ ', '').replace('.', '').replace(',', '.'))
+    return isNaN(val) ? 0 : val
   } catch (error) {
     return 0
   }
 }
+function parseFloatToMoney(float) {
+  try {
+    return float.toLocaleString("pt-BR", { style: "currency" , currency:"BRL"})
+  } catch (error) {
+    return 0
+  }
+}
+
 
 /**
  * @param {Number} min Minimo
