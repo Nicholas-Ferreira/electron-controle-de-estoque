@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hermes - Entrada</title>
+  <title>Hermes - Saida</title>
 </head>
 
 <body>
@@ -14,7 +14,7 @@
       <!-- DataTales Example -->
       <div class="card shadow mb-4" style="width: 100%;">
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-          <h6 class="m-0 font-weight-bold text-primary">Entrada</h6>
+          <h6 class="m-0 font-weight-bold text-primary">Saida</h6>
           <div class="dropdown no-arrow">
             <a href='#' class="dropdown-toggle" data-toggle="modal" data-target=".bd-example-modal-xl">
               <i class="fas fa-plus fa-sm fa-fw"></i>
@@ -23,21 +23,20 @@
         </div>
         <div class="card-body">
           <div class="table-responsive">
-            <table class="table table-bordered" id="table-entrada" width="100%" cellspacing="0">
+            <table class="table table-bordered" id="table-saida" width="100%" cellspacing="0">
               <thead>
                 <tr>
                   <th>Data</th>
                   <th>Produto</th>
-                  <th>Valor unit.</th>
                   <th>Quantidade</th>
-                  <th>Total</th>
+                  <th>Solicitante</th>
                   <th>Observação</th>
                   <th>Ações</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td colspan='6' style="text-align: -webkit-center;">Carregando...</td>
+                  <td colspan='7' style="text-align: -webkit-center;">Carregando...</td>
                 </tr>
               </tbody>
             </table>
@@ -52,37 +51,39 @@
   <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" data-backdrop="static">
     <div class="modal-dialog modal-xl">
       <div class="modal-content">
-        <form id="formAddEntrada">
+        <form id="formAddSaida">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Entrada de Produto</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Saida de Produtos</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
             <div class="form-row">
-              <div class="form-group col-md-6">
+              <div class="form-group col-md-7">
                 <label for="product">Produto</label>
                 <select id="list-products" class="form-control js-example-basic-single" name="product" required>
                   <option value="">Carregando...</option>
                 </select>
               </div>
-              <div class="form-group col-md-2">
-                <label for="price">Valor Unit.</label>
-                <input type="text" name="price" class="form-control money" id="price" placeholder="0,00">
+              <div class="form-group col-md-3">
+                <label for="solicitante">Solicitante</label>
+                <select id="list-solicitante" class="form-control js-example-basic-single" name="solicitante" required>
+                  <option value="DP">DP</option>
+                  <option value="OP">OP</option>
+                  <option value="ADM">ADM</option>
+                  <option value="GDS">GDS</option>
+                  <option value="BASE">BASE</option>
+                </select>
               </div>
               <div class="form-group col-md-2">
                 <label for="units">Quantidade</label>
                 <input type="text" name="units" class="form-control units" id="units" placeholder="0" value="0"
                   required>
               </div>
-              <div class="form-group col-md-2">
-                <label for="total">Total</label>
-                <input type="text" class="form-control" id="total" value="R$ 0,00" disabled>
-              </div>
             </div>
             <div class="form-group">
-              <label for="nf">Nota Fiscal</label>
+              <label for="nf">Documento</label>
               <div class="custom-file">
                 <input id="nf" type="file" class="custom-file-input" name="nf" accept="image/*,.pdf" >
                 <label id='file-display' class="custom-file-label" for="nf">Nenhum arquivo selecionado</label>
@@ -113,7 +114,7 @@
   <script src="../assets/plugin/datatables/excel.min.js"></script>
 
   <!-- Page level custom scripts -->
-  <script src="../controllers/controllerEntrada.js"></script>
+  <script src="../controllers/controllerSaida.js"></script>
 </body>
 
 </html>

@@ -1,31 +1,29 @@
 var moment = require("moment");
 
-var table;
+var tableSaida;
 $(document).ready(async () => {
   initProdutsSelector()
   initDataTable()
-  listarEntradas()
+  listarSaidas()
 })
 
-$('#formAddEntrada').submit(async (e) => {
+$('#formAddSaida').submit(async (e) => {
   e.preventDefault()
   $('.btn-save').prop('disabled', true).html('<div class="lds-dual-ring"></div>');
   const formData = getFormData($(e.target))
-  const { price = 0, units } = formData
-  formData.price = isNaN(parseMoneyToFloat(price)) ? 0 : parseMoneyToFloat(price)
+  const { units } = formData
   formData.units = isNaN(parseInt(units)) ? 0 : parseInt(units)
   formData.urlNF = await uploadFile()
   formData.creator = user.currentUser.email
   formData.date = moment().format()
-  formData.moviment = 'input'
 
-  db.collection("launches").add(formData)
+  db.collection("output").add(formData)
     .then(function (docRef) {
       console.log("sucesso ao cadastrar: ", docRef.id);
-      showToast('Sucesso', 'Entrada cadastrado')
+      showToast('Sucesso', 'Saida cadastrado')
       clearInputFile()
       $('select').val(null).trigger("change");
-      $('#formAddEntrada').trigger('reset')
+      $('#formAddSaida').trigger('reset')
       addToTable(formData)
     })
     .catch(function (error) {
@@ -42,28 +40,11 @@ $('#nf').change((e) => {
   $('#file-display').html(file.name + '<button type="button" class="file-clear-button" onclick="clearInputFile()">x</button>')
 })
 
-$('#price').keyup(updateTotal);
-$('#units').on('input', updateTotal);
 $('.units').mask('0#', {
   onKeyPress: function (number, event, currentField, options) {
     $(currentField).val(parseInt(number) || 0)
   }
 });
-$('.money').maskMoney({
-  affixesStay: "true",
-  prefix: "R$ ",
-  thousands: ".",
-  decimal: ","
-});
-
-function updateTotal() {
-  let price = parseMoneyToFloat($('#price').val())
-  let units = parseInt($('#units').val())
-  console.log(price, units)
-  isNaN(units) && (units = 0);
-  isNaN(price) && (price = 0);
-  $('#total').val(parseFloatToMoney(price * units))
-}
 
 async function uploadFile() {
   let file = $("#nf")[0].files[0];
@@ -102,7 +83,7 @@ function initProdutsSelector() {
   db.collection("products").get().then((querySnapshot) => {
     $('#list-products').html('<option></option>')
     querySnapshot.forEach(doc => {
-      $('#list-products').append(`<option value="${doc.id}" data-price="${doc.data().price}">${doc.data().name}</option>`)
+      $('#list-products').append(`<option value="${doc.id}" data-price="${doc.data().price}">${doc.data().code} - ${doc.data().name}</option>`)
     });
     $('select').select2({
       placeholder: "Selecione um Produto",
@@ -136,7 +117,7 @@ function initProdutsSelector() {
   });
 }
 function initDataTable() {
-  table = $('#table-entrada').dataTable({
+  tableSaida = $('#table-saida').dataTable({
     "language": {
       "decimal": ",",
       "thousands": ",",
@@ -172,20 +153,9 @@ function initDataTable() {
         }
       },
       { data: 'product' },
-      {
-        data: 'price',
-        render: function (data, type, row) {
-          return parseFloat(data).toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
-        }
-      },
       { data: 'units' },
-      {
-        data: 'price',
-        render: function (data, type, { price, units }) {
-          return parseFloat((price * units)).toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
-        }
-      },
-      { data: 'note' },
+      { data: 'solicitante' },
+      { data: 'note', render: (data) => limitarTexto(data, 35) },
       {
         data: 'id',
         render: function (data, type, dados, { row }) {
@@ -204,16 +174,16 @@ function initDataTable() {
   });
 }
 
-async function listarEntradas() {
-  table.fnClearTable()
-  db.collection("launches").where("moviment", "==", 'input').get().then((querySnapshot) => {
+async function listarSaidas() {
+  $('#table-saida').dataTable().fnClearTable()
+  db.collection("output").get().then((querySnapshot) => {
     querySnapshot.forEach((doc) => {
-      addToTable({ id: doc.id, ...doc.data()})
+      addToTable({ id: doc.id, ...doc.data() })
     });
   })
 }
 async function addToTable(launch) {
   var product = await getProduct(launch.product)
   launch.product = product.name
-  table.fnAddData(launch)
+  $('#table-saida').dataTable().fnAddData(launch)
 }

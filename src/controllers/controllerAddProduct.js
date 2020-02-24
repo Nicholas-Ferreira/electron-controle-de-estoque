@@ -1,10 +1,4 @@
 $(document).ready(() => {
-  $('.units').mask('0#', {
-    onKeyPress: function (number, event, currentField, options) {
-      $(currentField).val(parseInt(number) || 0)
-    }
-  });
-
   $('.money').maskMoney({
     affixesStay: "true",
     prefix: "R$ ",
@@ -16,11 +10,9 @@ $(document).ready(() => {
     e.preventDefault()
     $('.btn-save').prop('disabled', true);
     const formData = getFormData($(e.target))
-    const { code, name, units = 0, description, price = 0 } = formData
+    const { code, name, description, price = 0 } = formData
     try {
-      formData.units = parseInt(units)
       formData.price = parseMoneyToFloat(price)
-      if (isNaN(formData.units)) throw new Error('units is NaN');
       if (isNaN(formData.price)) formData.price = 0;
     } catch (error) {
       console.log(error)

@@ -17,9 +17,8 @@ $('#formAddEntrada').submit(async (e) => {
   formData.urlNF = await uploadFile()
   formData.creator = user.currentUser.email
   formData.date = moment().format()
-  formData.moviment = 'input'
 
-  db.collection("launches").add(formData)
+  db.collection("input").add(formData)
     .then(function (docRef) {
       console.log("sucesso ao cadastrar: ", docRef.id);
       showToast('Sucesso', 'Entrada cadastrado')
@@ -74,7 +73,7 @@ async function uploadFile() {
   var file_data = $('#nf').prop('files')[0];
 
   upload = await new Promise((resolve, reject) => {
-    let storageRef = store.ref('launches/' + newFileName);
+    let storageRef = store.ref('input/' + newFileName);
     var uploadTask = storageRef.put(file_data);
     uploadTask.on('state_changed', function (snapshot) {
       var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
@@ -102,7 +101,7 @@ function initProdutsSelector() {
   db.collection("products").get().then((querySnapshot) => {
     $('#list-products').html('<option></option>')
     querySnapshot.forEach(doc => {
-      $('#list-products').append(`<option value="${doc.id}" data-price="${doc.data().price}">${doc.data().name}</option>`)
+      $('#list-products').append(`<option value="${doc.id}" data-price="${doc.data().price}">${doc.data().code} - ${doc.data().name}</option>`)
     });
     $('select').select2({
       placeholder: "Selecione um Produto",
@@ -178,7 +177,7 @@ function initDataTable() {
           return parseFloat(data).toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
         }
       },
-      { data: 'units' },
+      { data: 'note', render: (data) => limitarTexto(data, 35) },
       {
         data: 'price',
         render: function (data, type, { price, units }) {
@@ -205,8 +204,8 @@ function initDataTable() {
 }
 
 async function listarEntradas() {
-  table.fnClearTable()
-  db.collection("launches").where("moviment", "==", 'input').get().then((querySnapshot) => {
+  $('#table-entrada').dataTable().fnClearTable()
+  db.collection("input").get().then((querySnapshot) => {
     querySnapshot.forEach((doc) => {
       addToTable({ id: doc.id, ...doc.data()})
     });
@@ -215,5 +214,5 @@ async function listarEntradas() {
 async function addToTable(launch) {
   var product = await getProduct(launch.product)
   launch.product = product.name
-  table.fnAddData(launch)
+  $('#table-entrada').dataTable().fnAddData(launch)
 }

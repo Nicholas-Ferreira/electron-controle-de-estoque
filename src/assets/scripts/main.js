@@ -1,10 +1,10 @@
 
 const INIT_PAGE = 'dashboard'
 const ERROR_IMAGE = '../../src/assets/images/error.png'
-const SUCCESS_IMAGE =  '../../src/assets/images/success.png'
+const SUCCESS_IMAGE = '../../src/assets/images/success.png'
 let history = []
 
-firebase.auth().onAuthStateChanged(function(user) {
+firebase.auth().onAuthStateChanged(function (user) {
   if (user) {
     var displayName = user.displayName;
     var email = user.email;
@@ -23,10 +23,10 @@ firebase.auth().onAuthStateChanged(function(user) {
 });
 
 signout = () => {
-  firebase.auth().signOut().then(function() {
+  firebase.auth().signOut().then(function () {
     $('#page-top').load(`login.html`);
     location.reload()
-  }).catch(function(error) {
+  }).catch(function (error) {
     showToast('Ops!', error.message, 'error', 1.5)
   });
 }
@@ -40,18 +40,19 @@ changePage = (location) => {
   $('#page').load(`${location}.html`);
   $('#page-title').html(`${button}<label>${primeirasMaiuscula(location)}</label>`);
   $('#current-page').val(location)
+
 };
 
 navigation = (location) => {
   let corrent_page = $('#current-page').val()
-  if(corrent_page == location) return changePage(location);
+  if (corrent_page == location) return changePage(location);
   history.push(corrent_page)
   history = removeDuplicates(history)
   changePage(location)
 };
 
 backPage = () => {
-  let lastPage = history[history.length-1]
+  let lastPage = history[history.length - 1]
   history.pop()
   changePage(lastPage)
 }

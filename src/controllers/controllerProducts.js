@@ -38,14 +38,14 @@ $(document).ready(async () => {
     columns: [
       { data: 'code' },
       { data: 'name' },
-      { data: 'description' },
-      { data: 'units' },
       {
         data: 'price',
         render: function (data, type, row) {
           return parseFloat(data).toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
         }
-      }, {
+      },
+      { data: 'description', render: (data) => limitarTexto(data, 50) },
+      {
         data: 'id',
         render: function (data, type, dados, {row}) {
           return `<button onclick="edit_product('${data}', this)" class="btn btn-info btn-circle btn-sm"><i class="fas fa-edit"></i></button>
