@@ -1,0 +1,3 @@
+function initGraph(params) {
+  initChartMoviments([], [])
+}
