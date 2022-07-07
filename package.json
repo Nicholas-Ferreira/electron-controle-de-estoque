@@ -32,7 +32,7 @@
     "inputmask": "^5.0.3",
     "jquery": "^3.4.1",
     "jquery.easing": "^1.4.1",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "mongoose": "^5.8.11",
     "require-dir": "^1.2.0",
     "select2": "^4.0.13"
